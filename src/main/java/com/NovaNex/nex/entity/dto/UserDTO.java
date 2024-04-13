@@ -15,8 +15,8 @@ public class UserDTO {
 	@NotBlank(message = "Last name is required")
 	private String lastName;
 
-	@Pattern(regexp = "[0-9]+", message = "Contact number should contain only digits")
-	private String contactNumber;
+	@NotBlank
+	private String password;
 
 	@Email(message = "Invalid email address")
 	private String emailAddress;
