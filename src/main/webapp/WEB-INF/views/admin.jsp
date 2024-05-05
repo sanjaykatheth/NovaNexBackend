@@ -61,19 +61,19 @@
           <h2>Register Here</h2>
           <div class="mb-3">
             <label for="inputName" class="form-label">Name</label>
-            <input type="text" class="form-control" id="inputName" placeholder="Enter your name">
+            <input type="text" class="form-control" id="name" placeholder="Enter your name">
           </div>
           <div class="mb-3">
             <label for="inputEmail" class="form-label">Email address</label>
-            <input type="email" class="form-control" id="inputEmail" placeholder="name@example.com">
+            <input type="email" class="form-control" id="email" placeholder="name@example.com">
           </div>
           <div class="mb-3">
             <label for="inputPassword" class="form-label">Password</label>
-            <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+            <input type="password" class="form-control" id="password" placeholder="Password">
           </div>
           <div class="mb-3">
             <label for="inputMobile" class="form-label">Mobile</label>
-            <input type="tel" class="form-control" id="inputMobile" placeholder="Enter your mobile number">
+            <input type="tel" class="form-control" id="mobile" placeholder="Enter your mobile number">
           </div>
           <button type="submit" class="btn btn-primary">Register</button>
         </form>

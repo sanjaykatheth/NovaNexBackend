@@ -1,54 +1,37 @@
 $(document).ready(function() {
-    // Hide the success message initially
-    $('#successMessage').hide();
+    var regexPatterns = {
+        name: /^[A-Za-z]{5,}$/, // At least 5 characters, only alphabets
+        email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, // Valid email format
+        password: /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/, // At least one uppercase, one number, one special character, and minimum 6 characters
+        mobile: /^\d{10}$/ // Exactly 10 digits
+    };
 
-    $('.registration-form').submit(function(event) {
-        // Prevent default form submission
-        event.preventDefault();
+    function validateField(value, field) {
+        return regexPatterns[field].test(value);
+    }
 
-        // Collect form data
-        var formData = {
-            name: $('#inputName'),
-            email: $('#inputEmail'),
-            password: $('#inputPassword'),
-            mobile: $('#inputMobile')
-        };
-
-        // Check if all fields are filled
-        var allFieldsFilled = true;
-        for (var key in formData) {
-            if (formData[key].val() === '') {
-                allFieldsFilled = false;
-                formData[key].attr('placeholder', key + ' field is empty'); // Set placeholder as error message
-            }
-        }
-
-        if (!allFieldsFilled) {
-            return; // Stop the function if any field is empty
-        }
-
-        var jsonData = JSON.stringify({
-            name: formData.name.val(),
-            email: formData.email.val(),
-            password: formData.password.val(),
-            mobile: formData.mobile.val()
-        });
-        // Make an AJAX request
-        $.ajax({
-            url: 'http://localhost:8080/api/user/signup',
-            type: 'POST',
-            contentType: 'application/json',
-            data: jsonData,
-            success: function(response, status, xhr) {
-                console.log('Request successful:', xhr.status);
-                if (xhr.status === 200) {
-                    console.log("oh this is success")
-                    $('#successMessage').show(); // Show success message
-                }
-            },
-            error: function(xhr, status, error) {
-                console.error('Request error:', status, error);
+    // Function to check if all fields are filled and valid
+    function checkAllFieldsValid() {
+        var allFieldsValid = true;
+        $('#name, #email, #password, #mobile').each(function() {
+            var fieldId = $(this).attr('id');
+            if (!validateField($(this).val(), fieldId) || $(this).val() === '') {
+                allFieldsValid = false;
+                return false; // Break out of the loop early if any field is invalid
             }
         });
+        return allFieldsValid;
+    }
+
+    // Enable/disable submit button based on form completion and validity
+    $('.registration-form input').on('keyup change', function() {
+        if (checkAllFieldsValid()) {
+            $('.registration-form button[type="submit"]').prop('disabled', false);
+        } else {
+            $('.registration-form button[type="submit"]').prop('disabled', true);
+        }
     });
+
+    // Initially hide the success message
+    $('#successMessage').hide();
 });
