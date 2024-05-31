@@ -1,5 +1,5 @@
 pipeline {
-  agent any {
+  agent any 
      stages{
          stage ('install') {
               sh 'sudo apt-get update'
@@ -7,8 +7,7 @@ pipeline {
                }
         stage ('build')
            {
-             mvn clean install 
+            sh  'mvn clean install' 
            }
-       } 
-    }
+     }
  }
