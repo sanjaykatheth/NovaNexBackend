@@ -2,8 +2,8 @@ pipeline {
   agent any {
      stages{
          stage ('install') {
-              apt-get update 
-              apt install maven -y
+              sh 'sudo apt-get update'
+              sh 'sudo apt install maven -y'
                }
         stage ('build')
            {
