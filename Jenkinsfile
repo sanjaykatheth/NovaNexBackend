@@ -1,13 +1,17 @@
 pipeline {
-  agent any 
-     stages{
-         stage ('install') {
-              sh 'sudo apt-get update'
-              sh 'sudo apt install maven -y'
-               }
-        stage ('build')
-           {
-            sh  'mvn clean install' 
-           }
-     }
- }
+    agent any
+
+    stages {
+        stage('install') {
+            steps {
+                sh 'sudo apt-get update'
+                sh 'sudo apt-get install maven -y'
+            }
+        }
+        stage('build') {
+            steps {
+                sh 'mvn clean install'
+            }
+        }
+    }
+}
